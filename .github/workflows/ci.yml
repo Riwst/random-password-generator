@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: tests (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Verify no runtime dependencies
+        run: |
+          if grep -q '"dependencies"' package.json; then
+            echo "::error::Runtime dependencies are not allowed."
+            exit 1
+          fi
+      - name: Run tests
+        run: node --test tests/*.test.js
+
+  audit:
+    name: static audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Forbid network APIs in shipped code
+        run: |
+          set -e
+          # The app must not contact the network at runtime.
+          if grep -E "fetch\(|XMLHttpRequest|WebSocket|navigator\.sendBeacon|EventSource" \
+               generator.js app.js i18n.js index.html; then
+            echo "::error::Network call detected in shipped code."
+            exit 1
+          fi
+      - name: Forbid Math.random in generator
+        run: |
+          if grep -nE "Math\.random" generator.js; then
+            echo "::error::Math.random is not a CSPRNG; use crypto.getRandomValues."
+            exit 1
+          fi
+      - name: Confirm CSP is present
+        run: |
+          if ! grep -q "Content-Security-Policy" index.html; then
+            echo "::error::Missing CSP meta tag in index.html."
+            exit 1
+          fi

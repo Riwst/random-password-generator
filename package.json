@@ -1,0 +1,25 @@
+{
+  "name": "random-password-generator",
+  "version": "0.1.0",
+  "description": "Cryptographically random password generator, client-only, zero dependencies.",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=19"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "python3 -m http.server 8000"
+  },
+  "files": [
+    "generator.js",
+    "i18n.js",
+    "index.html",
+    "app.js",
+    "styles.css",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md"
+  ]
+}

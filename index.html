@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none';"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title data-i18n="title">ランダムパスワード生成器</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <h1 data-i18n="title">ランダムパスワード生成器</h1>
+        <label class="lang-switch">
+          <span class="visually-hidden" data-i18n="langLabel">言語</span>
+          <select id="lang" aria-label="Language / 言語">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+      </header>
+
+      <p class="lede" data-i18n="lede">
+        暗号学的に安全な乱数で、ブラウザの中だけでパスワードを生成します。何もサーバーには送りません。
+      </p>
+
+      <ul
+        id="candidates"
+        class="candidates"
+        data-i18n-attr="aria-label:candidatesAria"
+        aria-label="生成されたパスワード候補"
+        aria-live="polite"
+      ></ul>
+
+      <div class="entropy" aria-live="polite">
+        <span data-i18n="entropyLabel">エントロピー</span>:
+        <span id="entropy">—</span>
+        <span data-i18n="entropyUnit">ビット</span>
+      </div>
+
+      <form id="options" autocomplete="off">
+        <label class="row">
+          <span data-i18n="length">文字数</span>
+          <select id="length" name="length" required>
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="12">12</option>
+            <option value="16" selected>16</option>
+            <option value="24">24</option>
+          </select>
+        </label>
+
+        <fieldset class="classes">
+          <legend data-i18n="classesLegend">使う文字の種類</legend>
+          <label><input type="checkbox" name="lower" checked /> <span data-i18n="lower">小文字</span></label>
+          <label><input type="checkbox" name="upper" checked /> <span data-i18n="upper">大文字</span></label>
+          <label><input type="checkbox" name="digits" checked /> <span data-i18n="digits">数字</span></label>
+          <label><input type="checkbox" name="symbols" checked /> <span data-i18n="symbols">記号</span></label>
+        </fieldset>
+
+        <button id="generate" type="submit" class="primary" data-i18n="generate">生成する</button>
+      </form>
+
+      <p class="status" id="status" role="status"></p>
+
+      <section class="safety" aria-labelledby="safety-title">
+        <h2 id="safety-title" data-i18n="safetyTitle">これって本当に安全？</h2>
+        <p class="safety-intro" data-i18n="safetyIntro">
+          プログラムの専門知識がなくても、このアプリの安全性はあなた自身の目で確かめられます。3つの方法を順にご紹介します。
+        </p>
+
+        <article class="safety-card">
+          <h3 data-i18n="safety1Title">① 1分でできる、いちばん確実な確かめ方</h3>
+          <p data-i18n="safety1P1">スマートフォンを機内モードにしてください。または、Wi-Fi を切ってください。そのうえで、もう一度ページ上部の「生成する」を押してみてください。</p>
+          <p class="safety-callout" data-i18n="safety1P2">— 普通にパスワードが出ますね。</p>
+          <p data-i18n="safety1P3">インターネットが繋がっていないのに動く、ということは、答えがあなたの機械の中だけで作られている、何よりの証拠です。</p>
+          <p data-i18n="safety1P4">手紙を遠くへ届けるには郵便屋さんが要ります。自分の手帳にメモを書くだけなら、誰の手も借りません。このアプリは、メモ帳と同じ仕組みです。</p>
+        </article>
+
+        <article class="safety-card">
+          <h3 data-i18n="safety2Title">② リアルタイムの証拠</h3>
+          <p class="safety-counter">
+            <span data-i18n="safety2CounterPre">このページを開いてから外へ送ったもの:</span>
+            <strong id="net-counter" aria-live="polite">0</strong>
+            <span data-i18n="safety2CounterUnit">回</span>
+          </p>
+          <p data-i18n="safety2P1">このページは、自分自身を常に見張っています。もし、ほんの少しでも外へ何かを送ろうとすれば、上の数字が増えます。あなたが何度パスワードを作っても、設定を変えても、数字は 0 のままです。</p>
+          <p class="safety-skeptic" data-i18n="safety2P2">「でも、ページが自分で『0』と表示しているだけでは？」 — それを疑うのは健全な態度です。下の「もっと厳密に確かめたい方へ」では、ページではなく Chrome や Safari 自身に同じ 0 を出させて確認できます。</p>
+        </article>
+
+        <article class="safety-card">
+          <h3 data-i18n="safety3Title">③ ブラウザによる強制ロック</h3>
+          <p data-i18n="safety3P1">このページは、読み込まれた瞬間に、あなたのブラウザ（Chrome、Safari、Firefox など）に対してこう宣言します: 「私はどこのサーバーともやり取りしません」。</p>
+          <p data-i18n="safety3P2">ブラウザは、その宣言を監視します。もし、このページが気を変えて「やっぱり送ろう」と思っても、ブラウザが先に止めます。</p>
+          <p class="safety-dual-header" data-i18n="safety3DualHeader">つまり、安全の根拠は二重です:</p>
+          <ol class="safety-dual">
+            <li data-i18n="safety3DualA">このページは、外と話さないように作られている。</li>
+            <li data-i18n="safety3DualB">たとえ何かが間違って外に話そうとしても、Chrome や Safari 自身が止める。</li>
+          </ol>
+          <p data-i18n="safety3P3">これは、銀行や Amazon の公式サイトでも使われている、Web の標準的な仕組みです。</p>
+        </article>
+
+        <article class="safety-card">
+          <h3 data-i18n="safetyGuaranteesTitle">このアプリがあなたに約束すること</h3>
+          <ul class="safety-guarantees">
+            <li data-i18n="safetyG1">パスワードはあなたの機械の中だけで作られます。サーバーには送りません。</li>
+            <li data-i18n="safetyG2">作ったパスワードは保存されません。ページを閉じれば消えます。</li>
+            <li data-i18n="safetyG3">履歴も、利用統計も、何も記録しません。</li>
+            <li data-i18n="safetyG4">インターネット接続がなくても動きます。</li>
+            <li data-i18n="safetyG5">プログラムは誰でも読めるように公開されています。</li>
+            <li data-i18n="safetyG6">外部の広告、アクセス解析、外部から読み込むフォントや画像 — 何も含まれていません。</li>
+          </ul>
+        </article>
+
+        <article class="safety-card safety-card--muted">
+          <h3 data-i18n="safetyCuriousTitle">もっと厳密に確かめたい方へ</h3>
+          <p data-i18n="safetyCuriousP1">パソコンのブラウザで、このページを右クリック →「検証」または「要素を調査」→「ネットワーク」タブを開いた状態で「生成する」を何度か押してみてください。リストに新しい行が増えなければ、外に何も送っていません。</p>
+          <p data-i18n="safetyCuriousP2">ソースコードもすべて公開されています。「ソースコード・ライセンス」のリンクから誰でも全文を読めます。</p>
+        </article>
+      </section>
+
+      <footer>
+        <a href="https://github.com/" rel="noopener noreferrer" data-i18n="sourceLink">ソースコード・ライセンス（MIT）</a>
+        ·
+        <a href="SECURITY.md" rel="noopener noreferrer" data-i18n="securityLink">セキュリティポリシー</a>
+      </footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
