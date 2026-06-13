@@ -5,7 +5,7 @@ The UI offers length presets of 6, 8, 12, 16, and 24; 12+ is recommended.
 Zero dependencies, zero network calls, fully auditable as a single screen of
 HTML/CSS/JS.
 
-[Demo](https://example.github.io/) · [Security policy](SECURITY.md) · [Contributing](CONTRIBUTING.md)
+[Live app](https://ai.riat.jp/N052-4/) · [Security policy](SECURITY.md) · [Contributing](CONTRIBUTING.md)
 
 ## Design goals
 
