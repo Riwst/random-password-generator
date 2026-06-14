@@ -1,8 +1,12 @@
 # Random Password Generator
 
-A tiny, client-only web app that generates cryptographically random passwords.
-The UI offers length presets of 6, 8, 12, 16, and 24; 12+ is recommended.
-Zero dependencies, zero network calls, fully auditable as a single screen of
+A client-side random password generator built with vanilla JavaScript and the
+Web Crypto API. It is designed as a small, auditable example for people who
+want to build their own privacy-conscious password generator without a server,
+tracking, runtime dependencies, or a build step.
+
+The UI offers length presets of 6, 8, 12, 16, and 24; 12+ is recommended. Zero
+dependencies, zero network calls, fully auditable as a single screen of
 HTML/CSS/JS.
 
 [Live app](https://ai.riat.jp/N052-4/) · [Security policy](SECURITY.md) · [Contributing](CONTRIBUTING.md)
@@ -19,6 +23,18 @@ HTML/CSS/JS.
    The UI exposes a fixed set of presets (6/8/12/16/24) and recommends 12+.
 6. **At least one of each enabled class.** Lowercase / uppercase / digits /
    symbols can each be toggled; whichever are on are guaranteed to appear.
+
+## For builders
+
+This repository may be useful if you are looking for a simple reference
+implementation of:
+
+- a browser-only password generator,
+- `crypto.getRandomValues()` / Web Crypto API usage,
+- unbiased random integer generation with rejection sampling,
+- no-dependency vanilla JavaScript,
+- a strict Content Security Policy with `connect-src 'none'`,
+- small tests for randomness invariants and i18n consistency.
 
 ## Usage
 

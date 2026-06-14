@@ -2,6 +2,26 @@
   "name": "random-password-generator",
   "version": "0.1.0",
   "description": "Cryptographically random password generator, client-only, zero dependencies.",
+  "homepage": "https://ai.riat.jp/N052-4/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riwst/random-password-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Riwst/random-password-generator/issues"
+  },
+  "keywords": [
+    "password-generator",
+    "random-password-generator",
+    "web-crypto",
+    "crypto",
+    "csprng",
+    "privacy",
+    "security",
+    "vanilla-javascript",
+    "zero-dependencies",
+    "client-side"
+  ],
   "type": "module",
   "private": false,
   "license": "MIT",
