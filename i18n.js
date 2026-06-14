@@ -3,6 +3,7 @@
 
 export const STRINGS = {
   ja: {
+    pageTitle: 'ランダムパスワード生成器 | ブラウザだけで動く安全なパスワード生成ツール',
     title: 'ランダムパスワード生成器',
     lede: '暗号学的に安全な乱数で、ブラウザの中だけでパスワードを生成します。何もサーバーには送りません。',
     candidatesAria: '生成されたパスワード候補',
@@ -69,6 +70,7 @@ export const STRINGS = {
       'ソースコードもすべて公開されています。「ソースコード・ライセンス」のリンクから誰でも全文を読めます。',
   },
   en: {
+    pageTitle: 'Random Password Generator | Client-side Web Crypto password tool',
     title: 'Random Password Generator',
     lede: 'Cryptographically random passwords, generated locally in your browser. Nothing is transmitted.',
     candidatesAria: 'Generated password candidates',

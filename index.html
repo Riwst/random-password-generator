@@ -8,13 +8,48 @@
       content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'; frame-ancestors 'none';"
     />
     <meta name="referrer" content="no-referrer" />
-    <title data-i18n="title">ランダムパスワード生成器</title>
+    <meta
+      name="description"
+      content="ブラウザだけで動くランダムパスワード生成器。Web Crypto APIで暗号学的に安全な乱数を使い、サーバー送信・保存・外部通信なしでパスワードを生成します。"
+    />
+    <meta name="robots" content="index,follow" />
+    <meta name="application-name" content="Random Password Generator" />
+    <meta name="theme-color" content="#f6f7f2" />
+    <link rel="canonical" href="https://ai.riat.jp/N052-4/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="raw ideas & applied tools" />
+    <meta property="og:title" content="ランダムパスワード生成器 | ブラウザだけで動く安全なパスワード生成ツール" />
+    <meta
+      property="og:description"
+      content="Web Crypto APIで暗号学的に安全な乱数を使い、サーバー送信・保存・外部通信なしでパスワードを生成します。"
+    />
+    <meta property="og:url" content="https://ai.riat.jp/N052-4/" />
+    <meta property="og:image" content="https://ai.riat.jp/img/N052-4.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ランダムパスワード生成器 | ブラウザだけで動く安全なパスワード生成ツール" />
+    <meta
+      name="twitter:description"
+      content="Web Crypto APIで暗号学的に安全な乱数を使い、サーバー送信・保存・外部通信なしでパスワードを生成します。"
+    />
+    <meta name="twitter:image" content="https://ai.riat.jp/img/N052-4.png" />
+    <title data-i18n="pageTitle">ランダムパスワード生成器 | ブラウザだけで動く安全なパスワード生成ツール</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app">
+    <main class="app" itemscope itemtype="https://schema.org/SoftwareApplication">
+      <meta itemprop="applicationCategory" content="SecurityApplication" />
+      <meta itemprop="operatingSystem" content="Any modern web browser" />
+      <meta itemprop="url" content="https://ai.riat.jp/N052-4/" />
+      <meta itemprop="softwareVersion" content="0.1.0" />
+      <meta itemprop="license" content="https://github.com/Riwst/random-password-generator/blob/main/LICENSE" />
+      <meta itemprop="sameAs" content="https://github.com/Riwst/random-password-generator" />
+      <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <meta itemprop="price" content="0" />
+        <meta itemprop="priceCurrency" content="USD" />
+      </div>
       <header class="app-header">
-        <h1 data-i18n="title">ランダムパスワード生成器</h1>
+        <h1 data-i18n="title" itemprop="name">ランダムパスワード生成器</h1>
         <label class="lang-switch">
           <span class="visually-hidden" data-i18n="langLabel">言語</span>
           <select id="lang" aria-label="Language / 言語">
@@ -24,7 +59,7 @@
         </label>
       </header>
 
-      <p class="lede" data-i18n="lede">
+      <p class="lede" data-i18n="lede" itemprop="description">
         暗号学的に安全な乱数で、ブラウザの中だけでパスワードを生成します。何もサーバーには送りません。
       </p>
 
